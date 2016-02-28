@@ -1,0 +1,16 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" 
+    android:background="@drawable/bus1">
+
+    <ImageButton
+        android:id="@+id/login_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="72dp"
+        android:background="@drawable/lgbn2"
+        android:contentDescription="@string/go"
+        android:onClick="onAddRouteClicked"
+        android:src="@drawable/loginbn" />
+
+</LinearLayout>
