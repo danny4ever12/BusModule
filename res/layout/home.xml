@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="72dp"
         android:background="@drawable/lgbn2"
-        android:contentDescription="@string/go"
+        android:contentDescription="@string/goo"
         android:onClick="onAddRouteClicked"
         android:src="@drawable/loginbn" />
 

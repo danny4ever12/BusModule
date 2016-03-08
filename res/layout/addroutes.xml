@@ -1,15 +1,14 @@
-<LinearLayout 
-    
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:background="@drawable/bg2" >
-    
+    android:background="@drawable/bg2"
+    android:orientation="vertical" >
+
     <RelativeLayout
         android:id="@+id/relativeLayout9"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_weight="0.00" >
 
         <TextView
             android:id="@+id/textView8"
@@ -20,86 +19,106 @@
             android:text="Add Routes"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#7E2217"
+            android:textSize="@dimen/heding"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textView8"
+            android:text="email"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#7E2217"
+            android:textSize="@dimen/subheading"
+            android:textStyle="bold" />
+
     </RelativeLayout>
+
     <TableLayout
         android:id="@+id/tableLayout6"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        >
 
-       <TableRow
+        <TableRow
             android:id="@+id/tableRow20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
-    
-    
-             <TextView 
-                  android:layout_width="fill_parent"
-                  android:layout_height="wrap_content"
-                  android:textAppearance="?android:attr/textAppearanceLarge"
-                  android:text="source"/>
 
-           <EditText
-                   android:id="@+id/sourceedit"
-                   android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:ems="10">
-          </EditText>
-   </TableRow>
-   <TableRow ></TableRow>
-   <TableRow ></TableRow>
-      <TableRow
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="source"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <EditText
+                android:id="@+id/sourceedit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10" >
+            </EditText>
+        </TableRow>
+
+        <TableRow>
+        </TableRow>
+
+        <TableRow>
+        </TableRow>
+
+        <TableRow
             android:id="@+id/tableRow21"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
-       
-         <TextView 
-             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Destination"
-            android:textAppearance="?android:attr/textAppearanceLarge"/>
-        <EditText
-          android:id="@+id/destinationedit"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-         >
 
-        <requestFocus />
-    </EditText>
-   </TableRow>
-   </TableLayout>
-   
-     <LinearLayout
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Destination"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <EditText
+                android:id="@+id/destinationedit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <requestFocus />
+            </EditText>
+        </TableRow>
+    </TableLayout>
+
+    <LinearLayout
         android:id="@+id/linearLayout15"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
+    </LinearLayout>
 
-     </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/relativeLayout23"
+        android:layout_width="match_parent"
+        android:layout_height="67dp" >
 
-     <RelativeLayout
-         android:id="@+id/relativeLayout23"
-         android:layout_width="match_parent"
-         android:layout_height="120dp" >
+        <Button
+            android:id="@+id/submitbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignTop="@+id/backBtn"
+            android:background="@drawable/login_design"
+            android:gravity="center"
+            android:text="@string/submit" />
 
-    <Button
-        android:id="@+id/submitbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignTop="@+id/backBtn"
-        android:background="@drawable/sub"
-        android:onClick="onSubmitClick" />
-
-    <Button
-        android:id="@+id/backBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/back1"
-        android:onClick="backTo" />
-
+        <Button
+            android:id="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/login_design"
+            android:gravity="center"
+            android:text="@string/back" />
     </RelativeLayout>
 
 </LinearLayout>

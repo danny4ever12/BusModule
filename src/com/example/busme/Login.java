@@ -6,22 +6,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-
-
 import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -45,10 +38,10 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
+@SuppressWarnings("deprecation")
 public class Login extends Activity {
 	String s;
 	 
@@ -75,161 +68,167 @@ public class Login extends Activity {
 	String username, password, regNo;
 	ImageView passimg;
 	String username_pref;
-	
-	protected LocationManager locationManager;
-	private Button btnGetLocation = null;
-	private EditText editLocation = null; 
-	private ProgressBar pb =null;
-
-
-	public static Location location;
-	private static final String TAG = "Debug";
-	 private Boolean flag = false;
-
-	SharedPreferences myshare;
-	Editor myedit;
-	String LocalityName;
-	
-	
-	
-
-	
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.login);
-
-		unameEt = (EditText) findViewById(R.id.usernameedit);
-		passwordEt = (EditText) findViewById(R.id.passwordedit);
-		regnoET = (EditText) findViewById(R.id.regnoedit);
-		Button ipbtn=(Button) findViewById(R.id.IPsett);
-		Button lgbn=(Button)findViewById(R.id.login_btn);
 		
-		myshare=PreferenceManager.getDefaultSharedPreferences(Login.this);
+		protected LocationManager locationManager;
 		
-		myedit=myshare.edit();
+		public static Location location;
+		private static final String TAG = "Debug";
 		
-		LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        LocationListener ll = new mylocationlistener();
-        
-        
-      lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,5000, 10, ll);
+	
+		SharedPreferences myshare;
+		Editor myedit;
+		String LocalityName;
 		
-
-		lgbn.setOnClickListener(new View.OnClickListener() {
+		
+		
+	
+		
+		
+		@Override
+		protected void onCreate(Bundle savedInstanceState) {
+			super.onCreate(savedInstanceState);
+			setContentView(R.layout.login);
+	
+			unameEt = (EditText) findViewById(R.id.usernameedit);
+			passwordEt = (EditText) findViewById(R.id.passwordedit);
+			regnoET = (EditText) findViewById(R.id.regnoedit);
+			Button ipbtn=(Button) findViewById(R.id.IPsett);
+			Button lgbn=(Button)findViewById(R.id.login_btn);
 			
-			@Override
-			public void onClick(View v) {
-				onLoginClick();
-			}
-		});
-        
-     
-	  
-		
-		ipbtn.setOnClickListener(new OnClickListener() {
+			myshare=PreferenceManager.getDefaultSharedPreferences(Login.this);
 			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				openOptionsMenu();
-			  
+			myedit=myshare.edit();
+			
+			LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+	        LocationListener ll = new mylocationlistener();
+	        
+	        
+	      lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,30000, 10, ll);
+			
+			lgbn.setOnClickListener(new View.OnClickListener() {
 				
+				@Override
+				public void onClick(View v) {
+					onLoginClick();
+				}
+			});
+	        
+	     
+		  
+			
+			ipbtn.setOnClickListener(new OnClickListener() {
 				
-			}
-		});
-		
-	
-	
-	}
-	
-
-	/*----Method to Check GPS is enable or disable ----- */
-	 private Boolean displayGpsStatus() {
-	  ContentResolver contentResolver = getBaseContext()
-	  .getContentResolver();
-	  boolean gpsStatus = Settings.Secure
-	  .isLocationProviderEnabled(contentResolver, 
-	  LocationManager.GPS_PROVIDER);
-	  if (gpsStatus) {
-	   return true;
-
-	  } else {
-	   return false;
-	  }
-	 }
-	
-	 /*----------Method to create an AlertBox ------------- */
-	 protected void alertbox(String title, String mymessage) {
-	  AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	  builder.setMessage("Your Device's GPS is Disable")
-	  .setCancelable(false)
-	  .setTitle("** Gps Status **")
-	  .setPositiveButton("Gps On",
-	   new DialogInterface.OnClickListener() {
-	   public void onClick(DialogInterface dialog, int id) {
-	   // finish the current activity
-	   // AlertBoxAdvance.this.finish();
-	   Intent myIntent = new Intent(
-	   Settings.ACTION_SECURITY_SETTINGS);
-	   startActivity(myIntent);
-	      dialog.cancel();
-	   }
-	   })
-	   .setNegativeButton("Cancel",
-	   new DialogInterface.OnClickListener() {
-	   public void onClick(DialogInterface dialog, int id) {
-	    // cancel the dialog box
-	    dialog.cancel();
-	    }
-	   });
-	  AlertDialog alert = builder.create();
-	  alert.show();
-	 }
-	 
-	 
-	 public class mylocationlistener implements LocationListener {
-		 double lat,lon;
-
-			public void onLocationChanged(Location location) {
-				Log.e("innnnnnnnnn", "innnnnn");
-				// TODO Auto-generated method stub
-				 
-				if (location != null) {
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					openOptionsMenu();
+				  
 					
-					Toast.makeText(getBaseContext(),"Location changed : Lat: " +
-							   location.getLatitude()+ " Lng: " + location.getLongitude(),
-							   Toast.LENGTH_SHORT).show();
-							            String longitude = "Longitude: " +location.getLongitude();  
-							      Log.v(TAG, longitude);
-							      String latitude = "Latitude: " +location.getLatitude();
-							      Log.v(TAG, latitude);
-			        Log.d("LOCATION CHANGED", location.getLatitude() + "");
-			        Log.d("LOCATION CHANGED", location.getLongitude() + "");
-//			      
-//			        
-			        /*----------to get City-Name from coordinates ------------- */
-			        String cityName=null;   
-			        String LocalityName=null;
-			        String subloc=null;
-			        gcd = new Geocoder(getBaseContext(), Locale.ENGLISH);             
-			          
-			        try { 
-			        	List<Address>  addresses;
-			        	Log.e("inside try","Ddd");
-			        addresses = gcd.getFromLocation(location.getLatitude(), location.getLongitude(), 1);  
-			        if (addresses.size() > 0)  
-			           System.out.println(addresses.get(0).getLocality());  
-			           cityName=addresses.get(0).getLocality();  
-			            LocalityName = addresses.get(0).getAddressLine(0);
-		            subloc=addresses.get(0).getSubLocality();
-
-			          } catch (IOException e) {            
-			          e.printStackTrace();  
-			        } 
-			            
-			         s = longitude+"\n"+latitude +
+					
+				}
+			});
+			
+		
+		
+		}
+		
+	/**
+		//----Method to Check GPS is enable or disable ----- 
+		 private Boolean displayGpsStatus() {
+		  ContentResolver contentResolver = getBaseContext()
+		  .getContentResolver();
+		  boolean gpsStatus = Settings.Secure
+		  .isLocationProviderEnabled(contentResolver, 
+		  LocationManager.GPS_PROVIDER);
+		  if (gpsStatus) {
+		   return true;
+	
+		  } else {
+		   return false;
+		  }
+		 }
+		**/
+		 /*----------Method to create an AlertBox ------------- */
+		 protected void alertbox(String title, String mymessage) {
+		  AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		  builder.setMessage("Your Device's GPS is Disable")
+		  .setCancelable(false)
+		  .setTitle("** Gps Status **")
+		  .setPositiveButton("Gps On",
+		   new DialogInterface.OnClickListener() {
+		   public void onClick(DialogInterface dialog, int id) {
+		   // finish the current activity
+		   // AlertBoxAdvance.this.finish();
+		   Intent myIntent = new Intent(
+		   Settings.ACTION_SECURITY_SETTINGS);
+		   startActivity(myIntent);
+		      dialog.cancel();
+		   }
+		   })
+		   .setNegativeButton("Cancel",
+		   new DialogInterface.OnClickListener() {
+		   public void onClick(DialogInterface dialog, int id) {
+		    // cancel the dialog box
+		    dialog.cancel();
+		    }
+		   });
+		  AlertDialog alert = builder.create();
+		  alert.show();
+		 }
+		 
+		 
+		 public class mylocationlistener implements LocationListener {
+			 double lat,lon;
+			 String cityName;
+			 
+				public void onLocationChanged(Location location) {
+					Log.e("innnnnnnnnn", "innnnnn");
+					// TODO Auto-generated method stub
+					 
+					if (location != null) {
+						
+						Toast.makeText(getBaseContext(),"Location changed : Lat: " +
+								   location.getLatitude()+ " Lng: " + location.getLongitude(),
+								   Toast.LENGTH_SHORT).show();
+								            String longitude = "Longitude: " +location.getLongitude();  
+								      Log.v(TAG, longitude);
+								      String latitude = "Latitude: " +location.getLatitude();
+								      Log.v(TAG, latitude);
+				        Log.d("LOCATION CHANGED", location.getLatitude() + "");
+				        Log.d("LOCATION CHANGED", location.getLongitude() + "");
+	//			      
+				        
+				      //shared preferences
+				        String latshare,longshare;
+				        latshare=String.valueOf(location.getLatitude());
+				        longshare=String.valueOf(location.getLongitude());
+						myedit.putString("latitude", latshare);
+						myedit.putString("longitude", longshare);
+						myedit.commit();
+	//			        
+				        /*----------to get City-Name from coordinates ------------- */
+						cityName=null; 
+				        String LocalityName=null;
+				        String subloc=null;
+				        gcd = new Geocoder(getBaseContext(), Locale.ENGLISH);             
+				          
+				        try { 
+				        	List<Address>  addresses;
+				        	Log.e("inside try","Ddd");
+				        addresses = gcd.getFromLocation(location.getLatitude(), location.getLongitude(), 1);  
+				        if (addresses.size() > 0)  
+				           System.out.println(addresses.get(0).getLocality());  
+				           cityName=addresses.get(0).getLocality();  
+				            LocalityName = addresses.get(0).getAddressLine(0);
+			            subloc=addresses.get(0).getSubLocality();
+	
+			            myedit.putString("current_location", cityName);
+						myedit.commit();
+				          } catch (IOException e) {            
+				          e.printStackTrace();  
+				        } 
+				            
+				         s = longitude+"\n"+latitude +
 			     "\n\nMy Currrent City is: "+cityName+"\nLocalityName:"+LocalityName+"\nSubLoc:"+subloc;
 			        Toast.makeText(getApplicationContext(),"k"+s,Toast.LENGTH_SHORT).show();
 
@@ -312,15 +311,15 @@ public class Login extends Activity {
 		
 			if(username.equals(""))
 			{
-				Toast.makeText(Login.this, "Enter username", 5000).show();
+				Toast.makeText(Login.this, "Enter username", Toast.LENGTH_LONG).show();
 			}
 			else if(password.equals(""))
 			{
-				Toast.makeText(Login.this, "Enter password", 5000).show();	
+				Toast.makeText(Login.this, "Enter password", Toast.LENGTH_LONG).show();	
 			}
 			else if(regNo.equals(""))
 			{
-				Toast.makeText(Login.this, "Enter Registration no", 5000).show();	
+				Toast.makeText(Login.this, "Enter Registration no", Toast.LENGTH_LONG).show();	
 			}
 			else
 			{
@@ -357,7 +356,6 @@ public class Login extends Activity {
 		 * Creating product
 		 * */
 	
-		@SuppressWarnings("deprecation")
 		protected String doInBackground(String... args) {
 			
 			List<NameValuePair> params = new ArrayList<NameValuePair>();

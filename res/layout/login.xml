@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:text="Login Page"
+           
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#7E2217"
             android:textStyle="bold" />
@@ -95,12 +95,23 @@
        android:id="@+id/login_btn"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
+       android:background="@drawable/login_design"
+       android:gravity="center"
        android:text="@string/Login" />
+   
+    <TextView 
+              
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:textAppearance="?android:attr/textAppearanceLarge"
+           />
 
    <Button
        android:id="@+id/IPsett"
-       android:layout_width="141dp"
+       android:layout_width="match_parent"
        android:layout_height="wrap_content"
+       android:background="@drawable/login_design"
+       android:gravity="center"
        android:text="@string/setip" />
 
 </LinearLayout>
